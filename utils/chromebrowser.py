@@ -12,7 +12,7 @@ class Chromebrowser():
         self.browser = None
         self.option =webdriver.ChromeOptions()
         #从配置文件中读取浏览器相关初始化配置
-        configPath = r"../configs/browser.config"
+        configPath = r"../configs/browser.ini"
         conf = MyConfigParser()
         conf.read(configPath, encoding='utf-8')
         basic_conf =dict(conf.items("BASIC"))
