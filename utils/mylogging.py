@@ -12,8 +12,8 @@ class Mylogging():
     def get_logger(self,loggerName):
         return logging.getLogger(loggerName)
 
+logger = Mylogging().get_logger("mylogger")
+
 if __name__ == '__main__':
-    #
-    logger = Mylogging().get_logger("mylogger")
     logger.info("this is test!")
     logger.error("this is error log")
