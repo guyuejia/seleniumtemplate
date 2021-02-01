@@ -6,7 +6,7 @@ import os
 
 class Chromebrowser():
     __implicitly_wait_time = 0
-    __driverpath = None
+    __desired_capabilities = DesiredCapabilities.CHROME
     #构造函数，主要用于读取配置文件，并完成浏览器的初始化配置
     def __init__(self):
         self.browser = None
@@ -46,8 +46,8 @@ class Chromebrowser():
 
         #配置加载策略
         if pageLoadStrategy != "":
-            desired_capabilities = DesiredCapabilities.CHROME
-            desired_capabilities["pageLoadStrategy"] = pageLoadStrategy
+
+            self.__desired_capabilities["pageLoadStrategy"] = pageLoadStrategy
 
         #如果配置文件中给出了窗口大小，就照此设置；
         if windowsize != "":
@@ -61,8 +61,7 @@ class Chromebrowser():
 
 
     def get_browser(self):
-        self.browser = webdriver.Chrome(self.__driverpath,options=self.option)
-        print(self.__implicitly_wait_time)
+        self.browser = webdriver.Chrome(self.__driverpath,options=self.option, desired_capabilities=self.__desired_capabilities)
         self.browser.implicitly_wait(self.__implicitly_wait_time)
         #判断是否设置了无头浏览器，是的话，设置允许下载页面文件
         if ("--headless" in self.option.arguments):
@@ -82,12 +81,14 @@ class Chromebrowser():
         params = {'cmd': 'Page.setDownloadBehavior', 'params': {'behavior': 'allow', 'downloadPath': download_dir}}
         self.browser.execute("send_command", params)
 
-    def __del__(self):
-        self.browser.quit()
+    # def __del__(self):
+    #     print("浏览器关闭")
+    #     self.browser.quit()
 
 if __name__ == '__main__':
     browser = Chromebrowser().get_browser()
-    browser.get("https://www.baidu.com")
-    browser.find_element_by_id("ttt")
+    browser.get("https://www.baidu1.com")
+    print("nihao")
+    # browser.find_element_by_id("ttt")
 
 
